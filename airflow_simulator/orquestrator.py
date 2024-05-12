@@ -5,6 +5,7 @@ from multiprocessing import Process
 from pipeline_injest.injest_database import fetch_data, save_to_parquet
 from database.database import create_database_in_memory, get_table_info
 from pipeline_injest.injest_api import fetch_reviews, process_reviews
+from pipeline_injest.injest_sftp import injest_csv
 from api_sentiment_analyst import api
 
 def task_database_ingestion():
@@ -12,7 +13,7 @@ def task_database_ingestion():
     print("Creating Database...")
     start_time = time.time()
     conn = create_database_in_memory()
-    get_table_info(conn)
+    # get_table_info(conn)
     
     print("----------------------------------------------------------------------")
     print("Injecting Data from the Production Database...")
@@ -40,6 +41,15 @@ def task_api_consumption():
     end_time = time.time()
     print("----------------------------------------------------------------------")
     print(f"API Consumption Completed in {end_time - start_time:.2f} seconds.")
+    
+def task_csv_consumption():
+    print("----------------------------------------------------------------------")
+    print("Injecting Data from the SFTP...")
+    start_time = time.time()
+    injest_csv()
+    end_time = time.time()
+    print("----------------------------------------------------------------------")
+    print(f"CSV Consumption Completed in {end_time - start_time:.2f} seconds.")
 
 def orchestrate():
     # Database Ingestion
@@ -49,10 +59,15 @@ def orchestrate():
     # API Consumption
     api_process = Process(target=task_api_consumption)
     api_process.start()
+    
+    # SFTP Consumption
+    sftp_process = Process(target=task_csv_consumption)
+    sftp_process.start()
 
 # Schedule
-schedule.every(1).minutes.do(task_database_ingestion)
-schedule.every(3).minutes.do(task_api_consumption)
+schedule.every(0.5).minutes.do(task_database_ingestion)
+schedule.every(1).minutes.do(task_api_consumption)
+schedule.every(1).minutes.do(task_csv_consumption)
 
 
 while True:

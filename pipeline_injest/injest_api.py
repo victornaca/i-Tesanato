@@ -1,18 +1,15 @@
-# injest_api.py
-
 import requests
+import os
+import json
+from datetime import datetime
 
 def fetch_reviews():
-    # Define the API endpoint URL
-    api_url = "http://127.0.0.1:5000/api/reviews"  # Assuming the API is running locally on port 5000
+    api_url = "http://127.0.0.1:5000/api/reviews"
     
     try:
-        # Send GET request to the API endpoint
         response = requests.get(api_url)
         
-        # Check if the request was successful (status code 200)
         if response.status_code == 200:
-            # Extract JSON data from the response
             reviews_data = response.json()
             return reviews_data
         else:
@@ -23,20 +20,20 @@ def fetch_reviews():
         return None
 
 def process_reviews(reviews_data):
-    # Implement your processing logic here
     if reviews_data:
-        # Example: Print the first review
-        first_review = reviews_data[0]
-        print("First review:", first_review)
+        destination_dir = "datalake/landing/api-sentiment-analyze/new/"
+        
+        if not os.path.exists(destination_dir):
+            os.makedirs(destination_dir)
+            
+        current_datetime = datetime.now()
+        datetime_str = current_datetime.strftime("%Y-%m-%d_%H-%M-%S")
+        
+        json_file_path = os.path.join(destination_dir, f"reviews_{datetime_str}.json")
+        
+        with open(json_file_path, "w") as json_file:
+            json.dump(reviews_data, json_file, indent=4)
+        
+        print("All reviews saved as JSON:", json_file_path)
     else:
         print("No reviews data received.")
-
-def main():
-    print("Fetching reviews from API...")
-    reviews_data = fetch_reviews()
-    
-    print("Processing reviews...")
-    process_reviews(reviews_data)
-
-if __name__ == "__main__":
-    main()
