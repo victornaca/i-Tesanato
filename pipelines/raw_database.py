@@ -29,10 +29,8 @@ def merge_parquet_files(source_directory, destination_directory, old_directory, 
 
     print(f"Parquet files merged and saved as '{folder_name}.parquet' in '{destination_directory}'.")
 
-    # Define o diretório "old" e cria se não existir
     os.makedirs(old_directory, exist_ok=True)
 
-    # Move os arquivos processados para a pasta "old"
     for file in parquet_files:
         source_path = os.path.join(source_directory, file)
         destination_path = os.path.join(old_directory, file)

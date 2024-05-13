@@ -12,6 +12,11 @@ from pipelines.pre_process_api import convert_json_to_parquet
 from pipelines.raw_database import merge_parquet_files
 from pipelines.raw_api import merge_parquet_files_api
 from pipelines.raw_sftp import merge_parquet_files_sftp
+from pipelines.clean_database import add_metadata_columns,load_parquet_files
+from pipelines.clean_sftp import add_metadata_columns_sftp,load_parquet_files_sftp
+from pipelines.clean_api import add_metadata_columns_api,load_parquet_files_api
+
+
 from api_sentiment_analyst import api
 
 def task_database_ingestion():
@@ -121,7 +126,61 @@ def task_raw_sftp():
     end_time = time.time()
     print("----------------------------------------------------------------------")
     print(f"SFTP Processed in {end_time - start_time:.2f} seconds.")
+    
+def task_clean_database():
+    print("----------------------------------------------------------------------")
+    print("Processing Data from the raw data...")
+    start_time = time.time()
+    source_dir = "datalake/raw-data/db-postgres-prod/"
+    source_dest = "datalake/clean-data/db-postgres-prod/"
+    folder_name="customer"
+    df = load_parquet_files(f'{source_dir}{folder_name}',folder_name)
+    add_metadata_columns(df,f'{source_dest}{folder_name}',folder_name)
+    
+    folder_name="order_product"
+    df = load_parquet_files(f'{source_dir}{folder_name}',folder_name)
+    add_metadata_columns(df,f'{source_dest}{folder_name}',folder_name)
+        
+    folder_name="product"
+    df = load_parquet_files(f'{source_dir}{folder_name}',folder_name)
+    add_metadata_columns(df,f'{source_dest}{folder_name}',folder_name)
+        
+    folder_name="stock"
+    df = load_parquet_files(f'{source_dir}{folder_name}',folder_name)
+    add_metadata_columns(df,f'{source_dest}{folder_name}',folder_name)
+        
+    folder_name="store"
+    df = load_parquet_files(f'{source_dir}{folder_name}',folder_name)
+    add_metadata_columns(df,f'{source_dest}{folder_name}',folder_name)
+        
+    folder_name="store_product"
+    df = load_parquet_files(f'{source_dir}{folder_name}',folder_name)
+    add_metadata_columns(df,f'{source_dest}{folder_name}',folder_name)
+        
+    end_time = time.time()
+    print("----------------------------------------------------------------------")
+    print(f"Database Processed in {end_time - start_time:.2f} seconds.")
+    
+def task_clean_sftp():
+    print("----------------------------------------------------------------------")
+    print("Processing Data from the raw-data...")
+    start_time = time.time()
+    df_sftp = load_parquet_files_sftp()
+    add_metadata_columns_sftp(df_sftp)
+    end_time = time.time()
+    print("----------------------------------------------------------------------")
+    print(f"SFTP Processed in {end_time - start_time:.2f} seconds.")
 
+def task_clean_api():
+    print("----------------------------------------------------------------------")
+    print("Processing Data from the raw-data...")
+    start_time = time.time()
+    df_api = load_parquet_files_api()
+    add_metadata_columns_api(df_api)
+    end_time = time.time()
+    print("----------------------------------------------------------------------")
+    print(f"API Processed in {end_time - start_time:.2f} seconds.")
+    
 def orchestrate():
     # Pre-Processing Database
     database_pre_process = Process(target=task_database_ingestion)
@@ -129,6 +188,9 @@ def orchestrate():
     # Raw-Processing Database
     database_raw = Process(target=task_raw_database)
     database_raw.start()
+    # Clean-Processing Database
+    database_clean = Process(target=task_clean_database)
+    database_clean.start()
     
     # API Consumption
     api_landing = Process(target=task_api_consumption)
@@ -139,6 +201,9 @@ def orchestrate():
     # Raw-Processing API
     api_raw = Process(target=task_raw_api)
     api_raw.start()
+    # Clean-Processing SFTP
+    api_clean = Process(target=task_clean_api)
+    api_clean.start()
     
     # SFTP Consumption
     sftp_landing = Process(target=task_csv_consumption)
@@ -149,6 +214,11 @@ def orchestrate():
     # Raw-Processing SFTP
     sftp_raw = Process(target=task_raw_sftp)
     sftp_raw.start()
+    # Clean-Processing SFTP
+    sftp_clean = Process(target=task_clean_sftp)
+    sftp_clean.start()
+    
+    
 
 # Schedule
 schedule.every(0.5).minutes.do(task_database_ingestion)
@@ -159,6 +229,10 @@ schedule.every(0.6).minutes.do(task_pre_process_api)
 schedule.every(0.7).minutes.do(task_raw_database)
 schedule.every(0.7).minutes.do(task_raw_api)
 schedule.every(0.7).minutes.do(task_raw_sftp)
+schedule.every(0.8).minutes.do(task_clean_database)
+schedule.every(0.8).minutes.do(task_clean_sftp)
+schedule.every(0.8).minutes.do(task_clean_api)
+
 
 while True:
     schedule.run_pending()
