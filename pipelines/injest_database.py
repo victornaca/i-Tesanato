@@ -1,5 +1,6 @@
 import sqlite3
 import pandas as pd
+import os
 
 def fetch_data(conn):
     query_customer = "SELECT * FROM customer"
@@ -20,4 +21,6 @@ def fetch_data(conn):
 
 def save_to_parquet(dataframes):
     for name, df in dataframes.items():
-        df.to_parquet(f"datalake/pre-process/db-postgres-prod/new/{name}.parquet")
+        directory = f"datalake/pre-process/db-postgres-prod/new/{name}"
+        os.makedirs(directory, exist_ok=True)  # Criar diretório se não existir
+        df.to_parquet(f"{directory}/{name}.parquet")

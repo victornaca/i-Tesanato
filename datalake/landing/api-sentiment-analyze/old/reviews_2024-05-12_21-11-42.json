@@ -1,0 +1,488 @@
+[
+    {
+        "customer": {
+            "id": "4",
+            "username": "emily_johnson"
+        },
+        "id": "1",
+        "product": {
+            "id": "4",
+            "name": "Handcrafted Vase"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.9
+        },
+        "source": "Instagram",
+        "text": "Absolutely love the handcrafted vase! It adds so much character to my living room.",
+        "timestamp": "2024-05-10T08:45:00Z"
+    },
+    {
+        "customer": {
+            "id": "5",
+            "username": "michael_brown"
+        },
+        "id": "2",
+        "product": {
+            "id": "5",
+            "name": "Vintage Armchair"
+        },
+        "sentiment": {
+            "label": "neutral",
+            "score": 0.6
+        },
+        "source": "Twitter",
+        "text": "The vintage armchair is beautiful but a bit overpriced in my opinion.",
+        "timestamp": "2024-05-10T10:30:00Z"
+    },
+    {
+        "customer": {
+            "id": "6",
+            "username": "sophia_davis"
+        },
+        "id": "3",
+        "product": {
+            "id": "6",
+            "name": "Artisanal Serving Tray"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.85
+        },
+        "source": "Facebook",
+        "text": "I'm in love with the artisanal serving tray! It's perfect for hosting dinner parties.",
+        "timestamp": "2024-05-10T12:15:00Z"
+    },
+    {
+        "customer": {
+            "id": "7",
+            "username": "matthew_wilson"
+        },
+        "id": "4",
+        "product": {
+            "id": "7",
+            "name": "Abstract Canvas Painting"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.8
+        },
+        "source": "Twitter",
+        "text": "The abstract canvas painting is a great addition to my office space. It inspires creativity!",
+        "timestamp": "2024-05-10T14:00:00Z"
+    },
+    {
+        "customer": {
+            "id": "8",
+            "username": "olivia_taylor"
+        },
+        "id": "5",
+        "product": {
+            "id": "8",
+            "name": "Handmade Throw Pillow"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.95
+        },
+        "source": "Instagram",
+        "text": "The handmade throw pillow is so soft and cozy! It's become my new favorite.",
+        "timestamp": "2024-05-10T16:45:00Z"
+    },
+    {
+        "customer": {
+            "id": "9",
+            "username": "daniel_martinez"
+        },
+        "id": "6",
+        "product": {
+            "id": "9",
+            "name": "Rustic Wooden Shelf"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.9
+        },
+        "source": "Twitter",
+        "text": "The rustic wooden shelf exceeded my expectations! It's sturdy and looks great in my living room.",
+        "timestamp": "2024-05-11T09:30:00Z"
+    },
+    {
+        "customer": {
+            "id": "10",
+            "username": "ava_anderson"
+        },
+        "id": "7",
+        "product": {
+            "id": "10",
+            "name": "Vintage Desk Lamp"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.85
+        },
+        "source": "Facebook",
+        "text": "The vintage desk lamp is a perfect addition to my workspace. It provides just the right amount of light!",
+        "timestamp": "2024-05-11T11:15:00Z"
+    },
+    {
+        "customer": {
+            "id": "11",
+            "username": "william_thomas"
+        },
+        "id": "8",
+        "product": {
+            "id": "11",
+            "name": "Handwoven Area Rug"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.8
+        },
+        "source": "Instagram",
+        "text": "The handwoven area rug adds warmth and texture to my living room. It's also easy to clean, which is a plus!",
+        "timestamp": "2024-05-11T13:00:00Z"
+    },
+    {
+        "customer": {
+            "id": "12",
+            "username": "emma_garcia"
+        },
+        "id": "9",
+        "product": {
+            "id": "12",
+            "name": "Ceramic Plant Pot"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.9
+        },
+        "source": "Twitter",
+        "text": "The ceramic plant pot is exactly what I needed for my indoor garden. It's stylish and durable!",
+        "timestamp": "2024-05-11T15:30:00Z"
+    },
+    {
+        "customer": {
+            "id": "13",
+            "username": "james_rodriguez"
+        },
+        "id": "10",
+        "product": {
+            "id": "13",
+            "name": "Minimalist Wall Clock"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.85
+        },
+        "source": "Facebook",
+        "text": "The minimalist wall clock is sleek and stylish. It adds a modern touch to my home office.",
+        "timestamp": "2024-05-11T17:45:00Z"
+    },
+    {
+        "customer": {
+            "id": "14",
+            "username": "isabella_lopez"
+        },
+        "id": "11",
+        "product": {
+            "id": "14",
+            "name": "Handmade Soap Set"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.95
+        },
+        "source": "Instagram",
+        "text": "The handmade soap set smells amazing! It's a great gift idea for friends and family.",
+        "timestamp": "2024-05-11T19:00:00Z"
+    },
+    {
+        "customer": {
+            "id": "15",
+            "username": "sophia_hernandez"
+        },
+        "id": "12",
+        "product": {
+            "id": "15",
+            "name": "Industrial Bar Stool"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.9
+        },
+        "source": "Twitter",
+        "text": "The industrial bar stool is sturdy and comfortable. It's perfect for my kitchen island!",
+        "timestamp": "2024-05-11T21:30:00Z"
+    },
+    {
+        "customer": {
+            "id": "4",
+            "username": "artlover"
+        },
+        "id": "13",
+        "product": {
+            "id": "16",
+            "name": "Artisanal Cheese Board"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.85
+        },
+        "source": "Instagram",
+        "text": "The artisanal cheese board is stunning! It's a beautiful addition to my dinner parties.",
+        "timestamp": "2024-05-12T08:45:00Z"
+    },
+    {
+        "customer": {
+            "id": "5",
+            "username": "ceramicfan"
+        },
+        "id": "14",
+        "product": {
+            "id": "17",
+            "name": "Bohemian Wall Tapestry"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.9
+        },
+        "source": "Twitter",
+        "text": "The bohemian wall tapestry transformed my bedroom! It's so colorful and adds a boho vibe.",
+        "timestamp": "2024-05-12T10:30:00Z"
+    },
+    {
+        "customer": {
+            "id": "6",
+            "username": "sophia_davis"
+        },
+        "id": "15",
+        "product": {
+            "id": "18",
+            "name": "Handblown Glass Vase"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.95
+        },
+        "source": "Facebook",
+        "text": "The handblown glass vase is a true work of art! It looks stunning with fresh flowers.",
+        "timestamp": "2024-05-12T13:15:00Z"
+    },
+    {
+        "customer": {
+            "id": "7",
+            "username": "matthew_wilson"
+        },
+        "id": "16",
+        "product": {
+            "id": "19",
+            "name": "Scandinavian Throw Blanket"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.9
+        },
+        "source": "Instagram",
+        "text": "The Scandinavian throw blanket is so cozy! It's perfect for snuggling up on the couch.",
+        "timestamp": "2024-05-12T15:45:00Z"
+    },
+    {
+        "customer": {
+            "id": "8",
+            "username": "olivia_taylor"
+        },
+        "id": "17",
+        "product": {
+            "id": "20",
+            "name": "Modern Wall Mirror"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.85
+        },
+        "source": "Twitter",
+        "text": "The modern wall mirror is a statement piece! It makes my entryway look so chic.",
+        "timestamp": "2024-05-12T18:00:00Z"
+    },
+    {
+        "customer": {
+            "id": "9",
+            "username": "daniel_martinez"
+        },
+        "id": "18",
+        "product": {
+            "id": "4",
+            "name": "Handcrafted Vase"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.95
+        },
+        "source": "Facebook",
+        "text": "The handcrafted vase is absolutely beautiful! It's the perfect centerpiece for my dining table.",
+        "timestamp": "2024-05-12T20:30:00Z"
+    },
+    {
+        "customer": {
+            "id": "10",
+            "username": "ava_anderson"
+        },
+        "id": "19",
+        "product": {
+            "id": "5",
+            "name": "Vintage Armchair"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.9
+        },
+        "source": "Instagram",
+        "text": "The vintage armchair is so comfortable! It's become my favorite spot to relax and read.",
+        "timestamp": "2024-05-12T22:45:00Z"
+    },
+    {
+        "customer": {
+            "id": "11",
+            "username": "william_thomas"
+        },
+        "id": "20",
+        "product": {
+            "id": "7",
+            "name": "Abstract Canvas Painting"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.9
+        },
+        "source": "Twitter",
+        "text": "I'm in love with the abstract canvas painting! It adds so much color to my living room.",
+        "timestamp": "2024-05-13T08:00:00Z"
+    },
+    {
+        "customer": {
+            "id": "4",
+            "username": "artlover"
+        },
+        "id": "21",
+        "product": {
+            "id": "10",
+            "name": "Vintage Desk Lamp"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.95
+        },
+        "source": "Facebook",
+        "text": "The vintage desk lamp is a game-changer for my home office! It provides the perfect amount of light.",
+        "timestamp": "2024-05-13T10:30:00Z"
+    },
+    {
+        "customer": {
+            "id": "5",
+            "username": "ceramicfan"
+        },
+        "id": "22",
+        "product": {
+            "id": "13",
+            "name": "Minimalist Wall Clock"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.85
+        },
+        "source": "Instagram",
+        "text": "The minimalist wall clock is sleek and stylish! It's a great addition to my home decor.",
+        "timestamp": "2024-05-13T13:00:00Z"
+    },
+    {
+        "customer": {
+            "id": "6",
+            "username": "sophia_davis"
+        },
+        "id": "23",
+        "product": {
+            "id": "9",
+            "name": "Rustic Wooden Shelf"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.9
+        },
+        "source": "Twitter",
+        "text": "The rustic wooden shelf is so versatile! It looks great in my living room holding books and decor.",
+        "timestamp": "2024-05-13T15:30:00Z"
+    },
+    {
+        "customer": {
+            "id": "7",
+            "username": "matthew_wilson"
+        },
+        "id": "24",
+        "product": {
+            "id": "12",
+            "name": "Ceramic Plant Pot"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.95
+        },
+        "source": "Facebook",
+        "text": "The ceramic plant pot is adorable! It adds a touch of greenery to my workspace.",
+        "timestamp": "2024-05-13T18:00:00Z"
+    },
+    {
+        "customer": {
+            "id": "8",
+            "username": "olivia_taylor"
+        },
+        "id": "25",
+        "product": {
+            "id": "6",
+            "name": "Artisanal Serving Tray"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.9
+        },
+        "source": "Instagram",
+        "text": "The artisanal serving tray is perfect for entertaining! It's beautifully crafted and practical.",
+        "timestamp": "2024-05-13T20:30:00Z"
+    },
+    {
+        "customer": {
+            "id": "9",
+            "username": "daniel_martinez"
+        },
+        "id": "26",
+        "product": {
+            "id": "5",
+            "name": "Vintage Armchair"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.95
+        },
+        "source": "Twitter",
+        "text": "The vintage armchair exceeded my expectations! It's incredibly comfortable and stylish.",
+        "timestamp": "2024-05-13T22:00:00Z"
+    },
+    {
+        "customer": {
+            "id": "10",
+            "username": "ava_anderson"
+        },
+        "id": "27",
+        "product": {
+            "id": "4",
+            "name": "Handcrafted Vase"
+        },
+        "sentiment": {
+            "label": "positive",
+            "score": 0.95
+        },
+        "source": "Instagram",
+        "text": "The handcrafted vase is absolutely stunning! It's now the focal point of my entryway.",
+        "timestamp": "2024-05-14T08:45:00Z"
+    }
+]

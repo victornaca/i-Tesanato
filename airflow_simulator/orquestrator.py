@@ -2,12 +2,16 @@ import time
 import schedule
 from multiprocessing import Process
 
-from pipeline_injest.injest_database import fetch_data, save_to_parquet
 from database.database import create_database_in_memory, get_table_info
-from pipeline_injest.injest_api import fetch_reviews, process_reviews
-from pipeline_injest.injest_sftp import injest_csv
-from pipeline_injest.pre_process_sftp import convert_csv_to_parquet
-from pipeline_injest.pre_process_api import convert_json_to_parquet
+
+from pipelines.injest_database import fetch_data, save_to_parquet
+from pipelines.injest_api import fetch_reviews, process_reviews
+from pipelines.injest_sftp import injest_csv
+from pipelines.pre_process_sftp import convert_csv_to_parquet
+from pipelines.pre_process_api import convert_json_to_parquet
+from pipelines.raw_database import merge_parquet_files
+from pipelines.raw_api import merge_parquet_files_api
+from pipelines.raw_sftp import merge_parquet_files_sftp
 from api_sentiment_analyst import api
 
 def task_database_ingestion():
@@ -70,11 +74,61 @@ def task_pre_process_api():
     end_time = time.time()
     print("----------------------------------------------------------------------")
     print(f"API Processed in {end_time - start_time:.2f} seconds.")
+    
+def task_raw_database():
+    print("----------------------------------------------------------------------")
+    print("Processing Data from the pre-process...")
+    start_time = time.time()
+    source_dir = "datalake/pre-process/db-postgres-prod/new/"
+    source_dest = "datalake/raw-data/db-postgres-prod/"
+    old_dir = "datalake/pre-process/db-postgres-prod/old/"
+    folder_name="customer"
+    merge_parquet_files(f'{source_dir}{folder_name}',f'{source_dest}{folder_name}',f'{old_dir}{folder_name}',folder_name)
+    
+    folder_name="order_product"
+    merge_parquet_files(f'{source_dir}{folder_name}',f'{source_dest}{folder_name}',f'{old_dir}{folder_name}',folder_name)
+    
+    folder_name="product"
+    merge_parquet_files(f'{source_dir}{folder_name}',f'{source_dest}{folder_name}',f'{old_dir}{folder_name}',folder_name)
+    
+    folder_name="stock"
+    merge_parquet_files(f'{source_dir}{folder_name}',f'{source_dest}{folder_name}',f'{old_dir}{folder_name}',folder_name)
+    
+    folder_name="store"
+    merge_parquet_files(f'{source_dir}{folder_name}',f'{source_dest}{folder_name}',f'{old_dir}{folder_name}',folder_name)
+    
+    folder_name="store_product"
+    merge_parquet_files(f'{source_dir}{folder_name}',f'{source_dest}{folder_name}',f'{old_dir}{folder_name}',folder_name)
+    
+    end_time = time.time()
+    print("----------------------------------------------------------------------")
+    print(f"Database Processed in {end_time - start_time:.2f} seconds.")
+    
+def task_raw_api():
+    print("----------------------------------------------------------------------")
+    print("Processing Data from the pre-process...")
+    start_time = time.time()
+    merge_parquet_files_api()
+    end_time = time.time()
+    print("----------------------------------------------------------------------")
+    print(f"API Processed in {end_time - start_time:.2f} seconds.")
+    
+def task_raw_sftp():
+    print("----------------------------------------------------------------------")
+    print("Processing Data from the pre-process...")
+    start_time = time.time()
+    merge_parquet_files_sftp()
+    end_time = time.time()
+    print("----------------------------------------------------------------------")
+    print(f"SFTP Processed in {end_time - start_time:.2f} seconds.")
 
 def orchestrate():
-    # Database Ingestion
+    # Pre-Processing Database
     database_pre_process = Process(target=task_database_ingestion)
     database_pre_process.start()
+    # Raw-Processing Database
+    database_raw = Process(target=task_raw_database)
+    database_raw.start()
     
     # API Consumption
     api_landing = Process(target=task_api_consumption)
@@ -82,21 +136,29 @@ def orchestrate():
     # Pre-Processing API
     api_pre_process = Process(target=task_pre_process_api)
     api_pre_process.start()
+    # Raw-Processing API
+    api_raw = Process(target=task_raw_api)
+    api_raw.start()
     
     # SFTP Consumption
     sftp_landing = Process(target=task_csv_consumption)
     sftp_landing.start()   
-    # Pre-Processing CSV
+    # Pre-Processing SFTP
     sftp_pre_process = Process(target=task_pre_process_csv)
     sftp_pre_process.start()
+    # Raw-Processing SFTP
+    sftp_raw = Process(target=task_raw_sftp)
+    sftp_raw.start()
 
 # Schedule
-schedule.every(0.3).minutes.do(task_database_ingestion)
-schedule.every(0.3).minutes.do(task_api_consumption)
-schedule.every(0.3).minutes.do(task_csv_consumption)
-schedule.every(0.4).minutes.do(task_pre_process_csv)
-schedule.every(0.4).minutes.do(task_pre_process_api)
-
+schedule.every(0.5).minutes.do(task_database_ingestion)
+schedule.every(0.5).minutes.do(task_api_consumption)
+schedule.every(0.5).minutes.do(task_csv_consumption)
+schedule.every(0.6).minutes.do(task_pre_process_csv)
+schedule.every(0.6).minutes.do(task_pre_process_api)
+schedule.every(0.7).minutes.do(task_raw_database)
+schedule.every(0.7).minutes.do(task_raw_api)
+schedule.every(0.7).minutes.do(task_raw_sftp)
 
 while True:
     schedule.run_pending()
