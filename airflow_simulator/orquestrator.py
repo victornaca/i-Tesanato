@@ -15,7 +15,8 @@ from pipelines.raw_sftp import merge_parquet_files_sftp
 from pipelines.clean_database import add_metadata_columns,load_parquet_files
 from pipelines.clean_sftp import add_metadata_columns_sftp,load_parquet_files_sftp
 from pipelines.clean_api import add_metadata_columns_api,load_parquet_files_api
-
+from pipelines.dw_sentiment_analyst import  load_parquet_file,transformation_file, load_datawarehouse
+from pipelines.dw_sales import  load_parquet_file_sales, transformation_file_sales, load_datawarehouse_sales
 
 from api_sentiment_analyst import api
 
@@ -180,6 +181,35 @@ def task_clean_api():
     print("----------------------------------------------------------------------")
     print(f"API Processed in {end_time - start_time:.2f} seconds.")
     
+def task_dw_sentiment_analyst():
+    print("----------------------------------------------------------------------")
+    print("Processing Data from the clean-data...")
+    start_time = time.time()
+    df_review = load_parquet_file("datalake/clean-data/api-sentiment-analyze/reviews_clean.parquet")
+    df_transform = transformation_file(df_review)
+    load_datawarehouse(df_transform)
+    end_time = time.time()
+    print("----------------------------------------------------------------------")
+    print(f"API Processed in {end_time - start_time:.2f} seconds.")
+    
+def task_dw_sales():
+    print("----------------------------------------------------------------------")
+    print("Processing Data from the clean-data...")
+    start_time = time.time()
+    
+    customer_df = load_parquet_file_sales("datalake/clean-data/db-postgres-prod/customer/customer_clean.parquet")
+    order_product_df = load_parquet_file_sales("datalake/clean-data/db-postgres-prod/order_product/order_product_clean.parquet")
+    product_df = load_parquet_file_sales("datalake/clean-data/db-postgres-prod/product/product_clean.parquet")
+    store_product_df = load_parquet_file_sales("datalake/clean-data/db-postgres-prod/store_product/store_product_clean.parquet")
+    store_df = load_parquet_file_sales("datalake/clean-data/db-postgres-prod/store/store_clean.parquet")
+     
+    transformed_df = transformation_file_sales(customer_df, order_product_df, store_product_df, store_df, product_df)
+    load_datawarehouse_sales(transformed_df)
+    
+    end_time = time.time()
+    print("----------------------------------------------------------------------")
+    print(f"API Processed in {end_time - start_time:.2f} seconds.")
+    
 def orchestrate():
     # Pre-Processing Database
     database_pre_process = Process(target=task_database_ingestion)
@@ -200,7 +230,7 @@ def orchestrate():
     # Raw-Processing API
     api_raw = Process(target=task_raw_api)
     api_raw.start()
-    # Clean-Processing SFTP
+    # Clean-Processing API
     api_clean = Process(target=task_clean_api)
     api_clean.start()
     
@@ -217,6 +247,13 @@ def orchestrate():
     sftp_clean = Process(target=task_clean_sftp)
     sftp_clean.start()
     
+    # DW-Processing Sentiment Analyst
+    sentiment_dw = Process(target=task_dw_sentiment_analyst)
+    sentiment_dw.start()
+    # DW-Processing Sales
+    sales_dw = Process(target=task_dw_sales)
+    sales_dw.start()
+    
     
 
 # Schedule
@@ -231,6 +268,8 @@ schedule.every(0.7).minutes.do(task_raw_sftp)
 schedule.every(0.8).minutes.do(task_clean_database)
 schedule.every(0.8).minutes.do(task_clean_sftp)
 schedule.every(0.8).minutes.do(task_clean_api)
+schedule.every(0.9).minutes.do(task_dw_sentiment_analyst)
+schedule.every(0.9).minutes.do(task_dw_sales)
 
 
 while True:
