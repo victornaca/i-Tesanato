@@ -2,7 +2,7 @@ import time
 import schedule
 from multiprocessing import Process
 
-from database.database import create_database_in_memory, get_table_info
+from database.database import create_database_in_memory
 
 from pipelines.injest_database import fetch_data, save_to_parquet
 from pipelines.injest_api import fetch_reviews, process_reviews
@@ -24,7 +24,6 @@ def task_database_ingestion():
     print("Creating Database...")
     start_time = time.time()
     conn = create_database_in_memory()
-    # get_table_info(conn)
     
     print("----------------------------------------------------------------------")
     print("Injecting Data from the Production Database...")
