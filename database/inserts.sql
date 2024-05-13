@@ -156,7 +156,7 @@ VALUES
 
 
 -- Inserts for a table order
-INSERT INTO "order" (order_id, order_date, order_quantity, customer_id, store_store_product_id)
+INSERT INTO order_product (order_id, order_date, order_quantity, customer_id, store_store_product_id)
 VALUES
 (1, '2024-04-01', 1, 4, 1),
 (2, '2024-04-01', 2, 5, 2),
