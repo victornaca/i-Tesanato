@@ -1,0 +1,7 @@
+flask
+json
+schedule
+pyarrow
+pandas
+sqlite3
+requests
